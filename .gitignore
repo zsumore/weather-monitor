@@ -45,3 +45,17 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+/target/
+.DS_STORE
+node_modules
+static
+.module-cache
+*.log*
+*.sublime-project
+*.sublime-workspace
+*.mp4
+dist
+.settings
+.classpath
+.project

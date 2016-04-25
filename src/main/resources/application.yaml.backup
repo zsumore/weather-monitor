@@ -1,0 +1,26 @@
+# Druid fs121 Config
+druid:
+  jdbcUrl:jdbc:postgresql://10.151.64.132:5432/fs121
+  username:fs121
+  password:123456
+  driverClass:org.postgresql.Driver
+  initialSize:2
+  minIdle:2
+  maxActive:30
+  
+# Druid Meteo DB Config	
+druid:
+  meteo:
+    jdbcUrl:jdbc:postgresql://10.151.64.155:5432/meteo
+    username:staa
+    password:123456abcdef
+    driverClass:org.postgresql.Driver
+    initialSize:2
+    minIdle:2
+    maxActive:30
+    
+## Test List
+ae:
+  station:
+    - 59828
+    - 59288
