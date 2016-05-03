@@ -2,11 +2,12 @@ import React from 'react';
 import { Route, Redirect, IndexRoute } from 'react-router';
 
 // Here we define all our material-ui ReactComponents.
+//AtmosphericElectric shorthand ae
 import Master from './components/master';
-import AtmosphericElectricHourPage from './components/pages/AtmosphericElectric/hour-page';
-import AtmosphericElectricDatePage from './components/pages/AtmosphericElectric/date-page';
-import AtmosphericElectricNowPage from './components/pages/AtmosphericElectric/now-page';
-import AtmosphericElectricMonthPage from './components/pages/AtmosphericElectric/month-page';
+import AEHourPage from './components/pages/ae/hour-page';
+import AEDatePage from './components/pages/ae/date-page';
+import AENowPage from './components/pages/ae/now-page';
+import AEMonthPage from './components/pages/ae/month-page';
 
 
 /**
@@ -20,18 +21,15 @@ import AtmosphericElectricMonthPage from './components/pages/AtmosphericElectric
  */
 const AppRoutes = (
 <Route path = '/' component = {Master} >
-
-    { /* Show the dashboard at / */ }
-    <IndexRoute component={AtmosphericElectricNowPage} />
-    <Redirect from='atmospheric-electric' to='/atmospheric-electric/now' />
-    <Route path = 'atmospheric-electric' >
-    <Route path='now' component={AtmosphericElectricNowPage} />
-    <Route path='hour' component={AtmosphericElectricHourPage} />
-    <Route path='hour/:datetime' component={AtmosphericElectricHourPage} />
-    <Route path='date' component = {AtmosphericElectricDatePage}/>
-    <Route path='month' component = {AtmosphericElectricMonthPage}/>
+    <IndexRoute component={AENowPage} />
+    <Redirect from='ae' to='/ae/now' />
+    <Route path = 'ae' >
+    <Route path='now' component={AENowPage} />
+    <Route path='hour' component={AEHourPage} />
+    <Route path='hour/:datetime' component={AEHourPage} />
+    <Route path='date' component = {AEDatePage}/>
+    <Route path='month' component = {AEMonthPage}/>
     </Route> 
-    <Redirect from = '*' to = '/atmospheric-electric/now' />
     </Route>
 );
 

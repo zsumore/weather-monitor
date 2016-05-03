@@ -53,4 +53,4 @@ const AtmosphericElectricMonthPage = React.createClass({
     }
 });
 
-export default AtmosphericElectricMonthPage;
+export default AEMonthPage;

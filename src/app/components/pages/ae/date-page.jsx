@@ -79,4 +79,4 @@ const AtmosphericElectricDatePage = React.createClass({
     }
 });
 
-export default AtmosphericElectricDatePage;
+export default AEDatePage;

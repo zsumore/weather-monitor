@@ -1,9 +1,9 @@
 import React from 'react';
-import AppBar from 'material-ui/app-bar';
-import IconButton from 'material-ui/icon-button';
-import FlatButton from 'material-ui/flat-button';
-import { Spacing } from 'material-ui/styles';
-import { StylePropable, StyleResizable } from 'material-ui/mixins';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
+import spacing from 'material-ui/styles/spacing';
+import styleResizable from 'material-ui/utils/styleResizable';
 import { Colors, getMuiTheme } from 'material-ui/styles';
 import { Styles } from 'material-ui';
 import IconMenu from 'material-ui/menus/icon-menu';
