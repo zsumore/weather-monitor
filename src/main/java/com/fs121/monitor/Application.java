@@ -27,15 +27,4 @@ public class Application extends SpringBootServletInitializer {
 		SpringApplication.run(Application.class, args);
 	}
 
-	// @Bean
-	// public WebMvcConfigurer corsConfigurer() {
-	// return new WebMvcConfigurerAdapter() {
-	// @Override
-	// public void addCorsMappings(CorsRegistry registry) {
-	// //registry.addMapping("/AtmosphericElectric/**");
-	// System.out.println(registry.toString());
-	// }
-	// };
-	// }
-
 }
