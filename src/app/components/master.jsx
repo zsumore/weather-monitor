@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -20,57 +20,6 @@ import AppLeftNav from './app-left-nav';
 import FullWidthSection from './full-width-section';
 
 
-function getStyles() {
-    const darkWhite = Colors.darkWhite;
-
-    const styles = {
-        appBar: {
-            position: 'fixed',
-            // Needed to overlap the examples
-            zIndex: 2,
-            top: 0
-        },
-        leftNav: {
-            zIndex: 1
-        },
-        root: {
-            paddingTop: Spacing.desktopKeylineIncrement,
-            minHeight: 400,
-            paddingLeft: 256
-        },
-        content: {
-            margin: Spacing.desktopGutterLess
-        },
-        contentWhenMedium: {
-            margin: `${Spacing.desktopGutter * 2}px ${Spacing.desktopGutter * 3}px`
-        },
-        footer: {
-            position: 'fixed',
-            zIndex: 0,
-            bottom: 0,
-            left: 0,
-            width: '100%',
-            backgroundColor: Colors.grey900,
-            textAlign: 'center',
-            paddingLeft: 280
-        },
-        a: {
-            color: darkWhite
-        },
-        p: {
-            margin: '0 auto',
-            padding: 0,
-            color: Colors.lightWhite,
-            maxWidth: 335
-        },
-        iconButton: {
-            color: darkWhite
-        }
-    };
-
-
-    return styles;
-}
 
 
 const LightTheme = getMuiTheme();
@@ -94,6 +43,49 @@ const Master = React.createClass({
         StylePropable,
         StyleResizable
     ],
+
+    getStyles() {
+    const styles = {
+      appBar: {
+        position: 'fixed',
+        // Needed to overlap the examples
+        zIndex: this.state.muiTheme.zIndex.appBar + 1,
+        top: 0,
+      },
+      root: {
+        paddingTop: spacing.desktopKeylineIncrement,
+        minHeight: 400,
+      },
+      content: {
+        margin: spacing.desktopGutter,
+      },
+      contentWhenMedium: {
+        margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
+      },
+      footer: {
+        backgroundColor: grey900,
+        textAlign: 'center',
+      },
+      a: {
+        color: darkWhite,
+      },
+      p: {
+        margin: '0 auto',
+        padding: 0,
+        color: lightWhite,
+        maxWidth: 356,
+      },
+      iconButton: {
+        color: darkWhite,
+      },
+    };
+
+    if (this.props.width === MEDIUM || this.props.width === LARGE) {
+      styles.content = Object.assign(styles.content, styles.contentWhenMedium);
+    }
+
+    return styles;
+  }
     getInitialState() {
         return {
             muiTheme: LightTheme,
