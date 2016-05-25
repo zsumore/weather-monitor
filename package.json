@@ -65,7 +65,7 @@
     "react-dom": "^15.0.0",
     "react-bootstrap-datetimepicker": "^0.0.22",
     "react-flex": "^2.1.0",
-    "react-router": "^2.3.0",
+    "react-router": "^2.4.0",
     "react-timer-mixin": "^0.13.0",
     "react-title-component": "^1.0.0",
     "superagent": "^1.8.0"
