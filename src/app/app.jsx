@@ -21,9 +21,10 @@ injectTapEventPlugin();
  * https://github.com/rackt/react-router/blob/master/docs/guides/overview.md
  */
 ReactDOM.render(<Router
-                        history={ useRouterHistory(createHashHistory)({
-                                    queryKey: false
-                                  }) }
-                        onUpdate={ () => window.scrollTo(0, 0) }>
+history={ useRouterHistory(createHashHistory)({
+    queryKey: false
+})}
+onUpdate={ () => window.scrollTo(0, 0)}>
                   { AppRoutes }
                 </Router>, document.getElementById('app'));
+

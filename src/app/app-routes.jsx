@@ -30,7 +30,7 @@ const AppRoutes = (
     <Route path='date' component = {AEDatePage}/>
     <Route path='month' component = {AEMonthPage}/>
     </Route> 
-    </Route>
+</Route>
 );
 
 export default AppRoutes;

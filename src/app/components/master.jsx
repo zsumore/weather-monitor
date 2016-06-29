@@ -1,12 +1,11 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import spacing from 'material-ui/styles/spacing';
-import styleResizable from 'material-ui/utils/styleResizable';
 import { Colors, getMuiTheme } from 'material-ui/styles';
-import { Styles } from 'material-ui';
 import IconMenu from 'material-ui/menus/icon-menu';
+
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ContentDrafts from 'material-ui/svg-icons/content/drafts';
@@ -19,6 +18,8 @@ import MenuItem from 'material-ui/menus/menu-item';
 import AppLeftNav from './app-left-nav';
 import FullWidthSection from './full-width-section';
 
+import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth';
+
 
 
 
@@ -26,92 +27,96 @@ const LightTheme = getMuiTheme();
 const DarkTheme = getMuiTheme(Styles.darkBaseTheme);
 
 
-const Master = React.createClass({
-    propTypes: {
-        children: React.PropTypes.node,
-        // history: React.PropTypes.object,
-        location: React.PropTypes.object
-    },
-    contextTypes: {
-        router: React.PropTypes.object.isRequired
-    },
-    childContextTypes: {
-        muiTheme: React.PropTypes.object,
-        router: React.PropTypes.object
-    },
-    mixins: [
-        StylePropable,
-        StyleResizable
-    ],
-
-    getStyles() {
-    const styles = {
-      appBar: {
-        position: 'fixed',
-        // Needed to overlap the examples
-        zIndex: this.state.muiTheme.zIndex.appBar + 1,
-        top: 0,
-      },
-      root: {
-        paddingTop: spacing.desktopKeylineIncrement,
-        minHeight: 400,
-      },
-      content: {
-        margin: spacing.desktopGutter,
-      },
-      contentWhenMedium: {
-        margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
-      },
-      footer: {
-        backgroundColor: grey900,
-        textAlign: 'center',
-      },
-      a: {
-        color: darkWhite,
-      },
-      p: {
-        margin: '0 auto',
-        padding: 0,
-        color: lightWhite,
-        maxWidth: 356,
-      },
-      iconButton: {
-        color: darkWhite,
-      },
+class Master extends Component {
+    static propTypes = {
+        children: PropTypes.node,
+        location: PropTypes.object,
+        width: PropTypes.number.isRequired,
+    };
+    static contextTypes = {
+        router: PropTypes.object.isRequired,
+    };
+    static childContextTypes = {
+        muiTheme: PropTypes.object,
+    };
+    state = {
+        dialogOpen: false,
+        navDrawerOpen: true,
+        styles: this.getStyles()
     };
 
-    if (this.props.width === MEDIUM || this.props.width === LARGE) {
-      styles.content = Object.assign(styles.content, styles.contentWhenMedium);
-    }
-
-    return styles;
-  }
-    getInitialState() {
-        return {
-            muiTheme: LightTheme,
-            leftNavOpen: true,
-            styles: getStyles(),
-            dialogOpen: false
-        };
-    },
     getChildContext() {
         return {
-            muiTheme: this.state.muiTheme,
-            router: this.context.router
+            muiTheme: this.state.muiTheme
         };
-    },
+    }
+
+    getStyles() {
+        const styles = {
+            appBar: {
+                position: 'fixed',
+                // Needed to overlap the examples
+                zIndex: this.state.muiTheme.zIndex.appBar + 1,
+                top: 0,
+            },
+            root: {
+                paddingTop: spacing.desktopKeylineIncrement,
+                minHeight: 400,
+            },
+            content: {
+                margin: spacing.desktopGutter,
+            },
+            contentWhenMedium: {
+                margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
+            },
+            footer: {
+                backgroundColor: grey900,
+                textAlign: 'center',
+            },
+            a: {
+                color: darkWhite,
+            },
+            p: {
+                margin: '0 auto',
+                padding: 0,
+                color: lightWhite,
+                maxWidth: 356,
+            },
+            iconButton: {
+                color: darkWhite,
+            },
+        };
+
+        if (this.props.width === MEDIUM || this.props.width === LARGE) {
+            styles.content = Object.assign(styles.content, styles.contentWhenMedium);
+        }
+
+        return styles;
+    }
+    /**
+        getInitialState() {
+            return {
+                muiTheme: LightTheme,
+                leftNavOpen: true,
+                styles: getStyles(),
+                dialogOpen: false
+            };
+        }
+        */
+
     componentWillMount() {
         this.setState({
             muiTheme: this.state.muiTheme
         });
-    },
+    }
     componentWillReceiveProps(nextProps, nextContext) {
         const newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
         this.setState({
-            muiTheme: newMuiTheme
+            muiTheme: newMuiTheme,
         });
-    },
-    handleMenuItemTap(index, menuItem) {
+    }
+
+    handleMenuItemTap=(index, menuItem) => {
 
         if (menuItem.props.value === 'light') {
 
@@ -125,15 +130,16 @@ const Master = React.createClass({
             console.log('[handleMenuItemTap] menuItem.props.value:' + menuItem.props.value);
         }
 
-    },
-    handleTitleTouchTap() {
+    };
+
+    handleTitleTouchTap = () => {
 
         this.setState({
-            leftNavOpen: !this.state.leftNavOpen
+            navDrawerOpen: !this.state.navDrawerOpen
         });
 
-        let {leftNavOpen, styles} = this.state;
-        if (!leftNavOpen) {
+        let {navDrawerOpen, styles} = this.state;
+        if (!navDrawerOpen) {
 
             styles.root.paddingLeft = 280;
             styles.footer.paddingLeft = 280;
@@ -141,38 +147,42 @@ const Master = React.createClass({
             styles.root.paddingLeft = 24;
             styles.footer.paddingLeft = 24;
         }
-    },
-    handleChangeRequestLeftNav(open) {
+    };
+
+    handleChangeRequestLeftNav=(open) => {
         this.setState({
-            leftNavOpen: open
+            navDrawerOpen: open
         });
 
-    },
-    handleRequestChangeList(event, value) {
+    };
+    handleRequestChangeList=(event, value) => {
         this.context.router.push(value);
-    },
-    handleChangeMuiTheme(newMuiTheme) {
+    };
+    handleChangeMuiTheme=(newMuiTheme) => {
         this.setState({
             muiTheme: newMuiTheme
         });
-    },
-    handleDialogOpen() {
+    };
+    handleDialogOpen=() => {
 
         this.setState({
             dialogOpen: true
         });
     // console.log(this.state);
-    },
-    handleDialogClose() {
+    };
+
+    handleDialogClose=() => {
         this.setState({
             dialogOpen: false
         });
-    },
+    };
+
     render() {
 
-        const {history, location, children} = this.props;
+        const {location, children, } = this.props;
 
-        let {leftNavOpen, styles} = this.state;
+        let {navDrawerOpen, styles} = this.state;
+
 
         const actions = [<FlatButton label='确定' primary={ true }
         keyboardFocused={ true }
@@ -222,7 +232,7 @@ const Master = React.createClass({
           <div style={ this.prepareStyles(styles.content)}>
             { React.cloneElement(children, {
                 onChangeMuiTheme: this.handleChangeMuiTheme,
-                isLeftNavClose: this.state.leftNavOpen
+                isLeftNavClose: this.state.navDrawerOpen
             })}
           </div>
         </div> }
@@ -232,7 +242,7 @@ const Master = React.createClass({
             location={ location }
             docked={ true }
             onRequestChangeList={ this.handleRequestChangeList }
-            open={ leftNavOpen } />
+            open={ navDrawerOpen } />
       <FullWidthSection style={ styles.footer }>
         <p style={ this.prepareStyles(styles.p)}>
           版权所有© <a
@@ -255,7 +265,8 @@ const Master = React.createClass({
       </Dialog>
     </div>
             );
-    },
-});
+    }
+}
+;
 
-export default Master;
+export default withWidth()(Master);
